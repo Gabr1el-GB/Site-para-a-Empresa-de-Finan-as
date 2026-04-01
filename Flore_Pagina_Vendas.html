@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GabDeals — Finanças para Empreendedoras</title>
+  <link href="estilo.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --verde-escuro: #1A3C34;
+    --verde-medio: #2D6A4F;
+    --verde-claro: #74C69D;
+    --verde-palido: #D8F3DC;
+    --creme: #FAF7F2;
+    --creme-escuro: #F0EBE1;
+    --dourado: #C9A84C;
+    --texto: #1A1A2E;
+    --cinza: #6C757D;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--creme);
+    color: var(--texto);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--verde-escuro);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(116,198,157,0.12) 0%, transparent 70%);
+    top: -100px; right: -200px;
+    border-radius: 50%;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    bottom: -100px; left: -100px;
+    border-radius: 50%;
+  }
+
+  .logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    color: var(--verde-claro);
+    text-transform: uppercase;
+    margin-bottom: 60px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-badge {
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--dourado);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border-radius: 40px;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 7vw, 86px);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.1;
+    max-width: 800px;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--verde-claro);
+  }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.65);
+    max-width: 560px;
+    line-height: 1.6;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1s;
+  }
+
+  .btn-primary {
+    background: var(--dourado);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 18px 48px;
+    border-radius: 50px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(201,168,76,0.35);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px rgba(201,168,76,0.45);
+    background: #d4b05c;
+  }
+
+  .hero-price-hint {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.5px;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.3);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: bounce 2s ease infinite 2s;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+  }
+
+  /* ── O QUE ESTÁ INCLUÍDO ── */
+  .section { padding: 100px 24px; }
+
+  .container { max-width: 1000px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--verde-claro);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 5vw, 54px);
+    font-weight: 300;
+    color: var(--verde-escuro);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .section-title em { font-style: italic; color: var(--verde-medio); }
+
+  .section-desc {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--cinza);
+    max-width: 580px;
+    margin-bottom: 60px;
+  }
+
+  /* Incluídos grid */
+  .includes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .include-card {
+    background: #fff;
+    border: 1px solid rgba(45,106,79,0.1);
+    border-radius: 16px;
+    padding: 36px 32px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .include-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(26,60,52,0.1);
+    border-color: rgba(45,106,79,0.2);
+  }
+
+  .include-icon {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .include-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--verde-escuro);
+    margin-bottom: 10px;
+  }
+
+  .include-card p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--cinza);
+  }
+
+  .include-tag {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: var(--verde-palido);
+    color: var(--verde-medio);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  /* ── PARA QUEM É ── */
+  .for-section {
+    background: var(--verde-escuro);
+    padding: 100px 24px;
+  }
+
+  .for-section .section-label { color: var(--verde-claro); }
+  .for-section .section-title { color: #fff; }
+  .for-section .section-desc { color: rgba(255,255,255,0.6); }
+
+  .for-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 680px;
+  }
+
+  .for-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 24px 28px;
+    transition: all 0.3s;
+  }
+
+  .for-item:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(116,198,157,0.2);
+  }
+
+  .for-check {
+    width: 28px; height: 28px;
+    background: var(--verde-claro);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 13px;
+    color: var(--verde-escuro);
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  .for-item-text strong {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .for-item-text span {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+  }
+
+  /* ── DEPOIMENTOS ── */
+  .testimonials { background: var(--creme-escuro); padding: 100px 24px; }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .testimonial-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 36px 32px;
+    border-left: 4px solid var(--verde-claro);
+    transition: all 0.3s;
+  }
+
+  .testimonial-card:hover {
+    box-shadow: 0 8px 32px rgba(26,60,52,0.08);
+    transform: translateY(-2px);
+  }
+
+  .stars { color: var(--dourado); font-size: 16px; margin-bottom: 16px; }
+
+  .testimonial-card blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--verde-escuro);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    background: var(--verde-palido);
+  }
+
+  .author-info strong { display: block; font-size: 14px; font-weight: 500; color: var(--texto); }
+  .author-info span { font-size: 12px; color: var(--cinza); }
+
+  /* ── PREÇO ── */
+  .pricing-section {
+    padding: 100px 24px;
+    text-align: center;
+    background: #fff;
+  }
+
+  .price-card {
+    max-width: 520px;
+    margin: 0 auto;
+    background: var(--creme);
+    border: 2px solid var(--verde-medio);
+    border-radius: 24px;
+    padding: 56px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .price-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--verde-claro), var(--dourado));
+  }
+
+  .price-badge-top {
+    background: var(--dourado);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    border-radius: 30px;
+    display: inline-block;
+    margin-bottom: 24px;
+  }
+
+  .price-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    font-weight: 300;
+    color: var(--verde-escuro);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .price-value sup { font-size: 32px; vertical-align: top; margin-top: 16px; }
+
+  .price-subtitle {
+    font-size: 14px;
+    color: var(--cinza);
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .price-includes {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .price-includes li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--texto);
+  }
+
+  .price-includes li::before {
+    content: '✓';
+    color: var(--verde-claro);
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .btn-buy {
+    display: block;
+    width: 100%;
+    background: var(--verde-escuro);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+  }
+
+  .btn-buy:hover {
+    background: var(--verde-medio);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(26,60,52,0.25);
+  }
+
+  .guarantee {
+    font-size: 13px;
+    color: var(--cinza);
+    text-align: center;
+  }
+
+  /* ── FAQ ── */
+  .faq-section { padding: 100px 24px; }
+
+  .faq-list { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 0; }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(26,60,52,0.1);
+    padding: 28px 0;
+  }
+
+  .faq-question {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--verde-escuro);
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+
+  .faq-answer {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--cinza);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--verde-escuro);
+    padding: 48px 24px;
+    text-align: center;
+  }
+
+  footer .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--verde-claro);
+    margin-bottom: 12px;
+    letter-spacing: 3px;
+  }
+
+  footer p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ── STICKY CTA ── */
+  .sticky-cta {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+  }
+
+  .sticky-cta.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .sticky-btn {
+    background: var(--dourado);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 14px 28px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(201,168,76,0.4);
+    transition: all 0.3s;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+  }
+
+  .sticky-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(201,168,76,0.5);
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: all 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="logo-text">Floré</div>
+  <div class="hero-badge">✦ Kit Digital de Finanças ✦</div>
+  <h1>Organize suas finanças.<br>Construa sua <em>liberdade.</em></h1>
+  <p class="hero-sub">O kit completo para empreendedoras digitais que querem sair do caos financeiro e construir um negócio com clareza e intenção.</p>
+  <div class="hero-cta">
+    <a href="#preco" class="btn-primary">Quero meu Kit Floré →</a>
+    <span class="hero-price-hint">Acesso imediato · Download em segundos</span>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    ver mais
+  </div>
+</section>
+
+<!-- O QUE ESTÁ INCLUÍDO -->
+<section class="section">
+  <div class="container">
+    <p class="section-label reveal">O que está incluído</p>
+    <h2 class="section-title reveal">Tudo que você precisa<br>em <em>um único kit</em></h2>
+    <p class="section-desc reveal">Desenvolvido para quem está começando ou quer reorganizar as finanças do negócio digital sem complicação.</p>
+
+    <div class="includes-grid">
+      <div class="include-card reveal">
+        <span class="include-tag">Exclusivo</span>
+        <div class="include-icon">📊</div>
+        <h3>Planilha Floré de Controle Financeiro</h3>
+        <p>7 abas completas: Dashboard, Receitas, Despesas, Metas, Planejamento e Relatórios. Tudo automatizado com fórmulas inteligentes.</p>
+      </div>
+      <div class="include-card reveal">
+        <span class="include-tag">Bônus</span>
+        <div class="include-icon">📖</div>
+        <h3>E-book: Do Caos ao Controle</h3>
+        <p>6 capítulos práticos sobre finanças para empreendedoras digitais. Método 50/30/20, reserva de emergência, meta de faturamento e muito mais.</p>
+      </div>
+      <div class="include-card reveal">
+        <span class="include-tag">Bônus</span>
+        <div class="include-icon">🎯</div>
+        <h3>Guia de Metas Financeiras</h3>
+        <p>Template para definir e acompanhar suas metas mensais e anuais com indicadores automáticos de progresso.</p>
+      </div>
+      <div class="include-card reveal">
+        <div class="include-icon">♾️</div>
+        <h3>Acesso Vitalício</h3>
+        <p>Compre uma vez, use para sempre. Todas as atualizações futuras do kit serão enviadas gratuitamente no seu e-mail.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM É -->
+<section class="for-section">
+  <div class="container">
+    <p class="section-label reveal">Para quem é</p>
+    <h2 class="section-title reveal">Feito para você que<br><em>quer crescer com clareza</em></h2>
+    <p class="section-desc reveal" style="color:rgba(255,255,255,0.55); margin-bottom: 40px;">Este kit é para você se pelo menos uma dessas situações te representa:</p>
+
+    <div class="for-list">
+      <div class="for-item reveal">
+        <div class="for-check">✓</div>
+        <div class="for-item-text">
+          <strong>Você não sabe exatamente quanto ganha por mês</strong>
+          <span>Dinheiro entra em contas diferentes e no final não sobra nada — mas você não entende por quê.</span>
+        </div>
+      </div>
+      <div class="for-item reveal">
+        <div class="for-check">✓</div>
+        <div class="for-item-text">
+          <strong>Você mistura finanças pessoais com as do negócio</strong>
+          <span>Paga contas pessoais com a receita da loja e às vezes injeta dinheiro próprio no negócio sem controle.</span>
+        </div>
+      </div>
+      <div class="for-item reveal">
+        <div class="for-check">✓</div>
+        <div class="for-item-text">
+          <strong>Você está começando sua loja ou negócio digital</strong>
+          <span>Quer começar do jeito certo, com um sistema financeiro desde o primeiro dia.</span>
+        </div>
+      </div>
+      <div class="for-item reveal">
+        <div class="for-check">✓</div>
+        <div class="for-item-text">
+          <strong>Você quer criar uma reserva de emergência mas não sabe como</strong>
+          <span>Sabe que precisa guardar dinheiro mas nunca sobra — e quer mudar isso de uma vez.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="testimonials">
+  <div class="container">
+    <p class="section-label reveal" style="text-align:center">Resultados reais</p>
+    <h2 class="section-title reveal" style="text-align:center; margin-bottom: 56px;">O que dizem quem já<br><em>transformou suas finanças</em></h2>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Em uma semana usando a planilha já sabia exatamente quanto precisava faturar para me pagar direito. Parece simples, mas mudou tudo."</blockquote>
+        <div class="testimonial-author">
+          <div class="avatar">🌸</div>
+          <div class="author-info">
+            <strong>Camila S.</strong>
+            <span>Designer freelancer, SP</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Finalmente entendi o método 50/30/20 na prática. O e-book é direto, sem enrolação. Recomendo para qualquer empreendedora."</blockquote>
+        <div class="testimonial-author">
+          <div class="avatar">🌿</div>
+          <div class="author-info">
+            <strong>Raquel M.</strong>
+            <span>Criadora de conteúdo, MG</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Comprei achando que ia ser mais do mesmo. Mas o dashboard da planilha me deu uma visão do meu negócio que eu nunca tinha tido."</blockquote>
+        <div class="testimonial-author">
+          <div class="avatar">✨</div>
+          <div class="author-info">
+            <strong>Fernanda L.</strong>
+            <span>Loja digital, RJ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREÇO -->
+<section class="pricing-section" id="preco">
+  <div class="container">
+    <p class="section-label reveal" style="text-align:center">Investimento</p>
+    <h2 class="section-title reveal" style="text-align:center; margin-bottom: 56px;">Um preço justo para uma<br><em>transformação real</em></h2>
+
+    <div class="price-card reveal">
+      <div class="price-badge-top">✦ Oferta de lançamento ✦</div>
+      <div class="price-value"><sup>R$</sup>37</div>
+      <p class="price-subtitle">Pagamento único · Acesso imediato e vitalício<br>Sem mensalidade. Sem surpresa.</p>
+
+      <ul class="price-includes">
+        <li>Planilha Floré de Controle Financeiro (7 abas)</li>
+        <li>E-book "Do Caos ao Controle" (6 capítulos)</li>
+        <li>Guia de Metas Financeiras</li>
+        <li>Atualizações futuras gratuitas</li>
+        <li>Suporte por e-mail por 30 dias</li>
+      </ul>
+
+      <a href="#" class="btn-buy">Quero meu Kit Floré agora →</a>
+      <p class="guarantee">🔒 Pagamento seguro · 7 dias de garantia sem perguntas</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <p class="section-label reveal" style="text-align:center">Dúvidas frequentes</p>
+    <h2 class="section-title reveal" style="text-align:center; margin-bottom: 56px;">Perguntas <em>respondidas</em></h2>
+
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <p class="faq-question">Preciso entender de finanças para usar?</p>
+        <p class="faq-answer">Não! O kit foi criado especialmente para quem não tem experiência com finanças. A planilha é intuitiva e o e-book explica tudo passo a passo, do zero.</p>
+      </div>
+      <div class="faq-item reveal">
+        <p class="faq-question">Como vou receber o kit após a compra?</p>
+        <p class="faq-answer">Imediatamente após a confirmação do pagamento, você receberá um e-mail com o link para download de todos os arquivos. É instantâneo!</p>
+      </div>
+      <div class="faq-item reveal">
+        <p class="faq-question">A planilha funciona no celular?</p>
+        <p class="faq-answer">Sim! A planilha é compatível com Google Sheets (gratuito) e Microsoft Excel. Funciona no celular, tablet e computador.</p>
+      </div>
+      <div class="faq-item reveal">
+        <p class="faq-question">E se eu não gostar?</p>
+        <p class="faq-answer">Você tem 7 dias de garantia total. Se por qualquer motivo não ficar satisfeita, basta enviar um e-mail e devolvemos 100% do valor, sem perguntas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Floré</div>
+  <p>© 2026 Floré · Todos os direitos reservados</p>
+  <p style="margin-top: 8px;">flore.com.br</p>
+</footer>
+
+<!-- STICKY CTA -->
+<a href="#preco" class="sticky-cta" id="stickyCta">
+  <span class="sticky-btn">Comprar por R$37 →</span>
+</a>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Sticky CTA
+  const stickyCta = document.getElementById('stickyCta');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) stickyCta.classList.add('visible');
+    else stickyCta.classList.remove('visible');
+  });
+</script>
+</body>
+</html>
